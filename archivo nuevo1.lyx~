@@ -891,7 +891,34 @@ Y por ultimo indicamos el dispositivo, en este caso, wlan0.
 \end_layout
 
 \begin_layout Standard
+\begin_inset Graphics
+	filename pegado22.png
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una vez configurado esto ya podemos monitorizar este interfaz, por ejemplo,
+ ver las conexiones activas pulsando en connections (c) en el menu principal:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado23.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Estableciendo nuestras reglas
+\end_layout
+
+\begin_layout Standard
+Una vez que se ha configurado
 \end_layout
 
 \begin_layout Subsection

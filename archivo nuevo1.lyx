@@ -913,6 +913,10 @@ Una vez configurado esto ya podemos monitorizar este interfaz, por ejemplo,
 
 \end_layout
 
+\begin_layout Standard
+Ahora debemos configurar las zonas:
+\end_layout
+
 \begin_layout Subsubsection
 Estableciendo nuestras reglas
 \end_layout
