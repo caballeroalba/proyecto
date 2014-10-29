@@ -1,0 +1,1000 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language spanish
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Proyecto fin de grado
+\end_layout
+
+\begin_layout Title
+Interfaz gráfica para nftables
+\end_layout
+
+\begin_layout Author
+José María Caballero Alba
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Descripción del problema.
+\end_layout
+
+\begin_layout Standard
+Nftables es un nuevo framework que sustituye al antiguo iptables.
+ Este nuevo software aun no esta desarrollado al 100% pero ya es operativo
+ en gran parte de sus funciones, tenemos la problemática de la implantación,
+ que aunque se incluye desde el kernel 3.13, las personas aun no están acostumbra
+das a su uso y por tanto siguen usando iptables o en su defecto la nomenclatura
+ de sus reglas.
+ En pocas palabras:
+\end_layout
+
+\begin_layout Itemize
+Esta disponible desde el kernel 3.13 en adelante
+\end_layout
+
+\begin_layout Itemize
+Trae una la nueva utilidad nft con una sintaxis diferente a la de iptables.
+\end_layout
+
+\begin_layout Itemize
+Tiene compatibilidad con las instrucciones de iptables.
+\end_layout
+
+\begin_layout Itemize
+Infraestructura genérica de conjuntos que permite construir mapas entre
+ asignaciones y acciones para mejorar las búsquedas.
+\end_layout
+
+\begin_layout Itemize
+Aun esta bajo desarrollo.
+\end_layout
+
+\begin_layout Standard
+Las diferencias con iptables son notables, estas serian las proporcionadas
+ por su pagina oficial:
+\end_layout
+
+\begin_layout Itemize
+Maquina de pseudo-estados en el espacio del kernel, nftables interpreta
+ el mapa de reglas proporcionadas por el usuario (con la nueva sintaxis)
+ , esta se compila y entra en la maquina de estados como bytecode y esta
+ misma la transfiere al kernel por la api Netlink's de netfilter.
+\end_layout
+
+\begin_layout Itemize
+La nueva sintaxis permite tener un conjunto de reglas, por ej: (traducir
+ toda la linea)
+\end_layout
+
+\begin_layout Itemize
+Reduce el total del código en el espacio del kernel.
+ Se puede elegir que selectores de paquetes de todos los protocolos existentes
+ puede usar la maquina de pseudo-estados, esto significa que no necesitamos
+ una extensión en espacio de kernel para cada protocolo si queremos soportarlo.
+ Esto supone una ventaja, ya que no necesitamos actualizar el kernel para
+ obtener nuevas características y esto a sido diseñado para trabajar en
+ el espacio lógico de usuario.
+ 
+\end_layout
+
+\begin_layout Itemize
+Interfaz unificada para reemplazar las utilidades iptables/ip6tables/arptables/e
+btables.
+ 
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Solución aportada
+\end_layout
+
+\begin_layout Standard
+La solución aporta consistirá en una interfaz gráfica escrita en c y usando
+ ncurses para poder manejar nftables y que de esta manera sea mas fácil
+ su uso.
+\end_layout
+
+\begin_layout Standard
+Esto implica una mejora sustancial para aquellas personas que quieran dejar
+ de la iptables y puedan utilizar nftables con todas la características
+ nuevas y así poder sacar mas rendimiento a los sistemas de cortafuegos
+ que usen en la actualidad.
+ La interfaz gráfica deberá de proporcionar una implementación de la utilidad
+ nft para su uso amigable y por tanto su curva de aprendizaje sera menor,
+ esto incluye que pueda explorar todas las posibilidades de la utilidad
+ nft, mejorar tiempos de configuración, etc.
+\end_layout
+
+\begin_layout Standard
+Se usara c por el hecho de que TIOBE (empresa que mide la calidad del software)
+ declara a C como el mejor lenguaje para programar (en su índice actual
+ de 100 lenguajes, c, esta el primero en la lista), cabe destacar que TIOBE
+ comprueba mas de 300 millones de lineas de código de sus clientes en el
+ mundo entero, en tiempo real, cada día.
+\end_layout
+
+\begin_layout Standard
+El de hecho de que TIOBE sea un buen indicador para decidir un lenguaje
+ de programación incluye:
+\end_layout
+
+\begin_layout Itemize
+Que esta basada en el estándar ISO 25010 sobre la calidad del software.
+\end_layout
+
+\begin_layout Itemize
+Mide mas de 350 estandares de aspecto del lenguaje de manera automatizada.
+\end_layout
+
+\begin_layout Itemize
+Da un resultado de 100 (nivel A, el mejor) a 0 (nivel F) 
+\end_layout
+
+\begin_layout Itemize
+Usa la metodología TIOBE Quality Indicator
+\end_layout
+
+\begin_layout Standard
+En este caso C esta en el puesto numero uno en el top de TIOBE, siendo el
+ segundo Java, esto indica que Java también podría haberse usado en este
+ proyecto pero debemos de tener en cuenta todo este software esta escrito
+ en C:
+\end_layout
+
+\begin_layout Itemize
+El kernel de linux
+\end_layout
+
+\begin_layout Itemize
+El repositorio Git
+\end_layout
+
+\begin_layout Itemize
+Las bases de datos Mysql, PostgreSQL, SQLite (software libre)
+\end_layout
+
+\begin_layout Itemize
+Las bases de datos Oracle, DB2, Informix, SYBASE (propietarias)
+\end_layout
+
+\begin_layout Itemize
+Muchas de las características de Windows 
+\end_layout
+
+\begin_layout Itemize
+El servidor web Apache y ngnix
+\end_layout
+
+\begin_layout Itemize
+Los lenguajes Perl, PHP, Python y Lua
+\end_layout
+
+\begin_layout Standard
+Esto nos hace ver que C es un lenguaje altamente usado y testeado para hacer
+ aplicaciones criticas, sabiendo que es un lenguaje altamente maduro y sin
+ fallos aparentes que puedan hacer fracasar el software por ser tecnología
+ nueva o con poco uso y por tanto no testeada.
+ 
+\end_layout
+
+\begin_layout Standard
+Se usara un router físico soekris net550* para su implementación y simulación
+ en entornos laborales.
+\end_layout
+
+\begin_layout Section
+Introducción a nftables
+\end_layout
+
+\begin_layout Standard
+Como ya dijimos en la descripción del problema, nftables es un nuevo framework
+ que sustituye al antiguo iptables para el filtrado de paquetes y clasificación
+ de estos en Linux.
+ Nftables es una combinación del núcleo de linux y una utilidad de espacio
+ de usuario (lo que seria la antigua iptables, nft).
+ Usa la infraestructura de Netfilter, como el connection tracking system.
+\end_layout
+
+\begin_layout Standard
+nftables 
+\end_layout
+
+\begin_layout Section
+Requisitos de instalación nftables.
+\end_layout
+
+\begin_layout Standard
+Nftables esta operativo desde el kernel 3.13, para poder usarlo necesitamos
+ compilar este kernel o un kernel superior.
+ Además de la utilidad nft para poder usar el framework la cual necesita
+ las librerias libmnl (normalmente en los repositorios) y libnftnl.
+\end_layout
+
+\begin_layout Subsection
+Instalación y compilación kernel 3.13.X
+\end_layout
+
+\begin_layout Standard
+Como hemos dicho en el apartado anterior, necesitamos instalar un kernel
+ superior al 3.13, en este caso vamos a usar el ultimo kernel estables de
+ kernel.org, siendo este a la fecha actual el 3.16.5
+\end_layout
+
+\begin_layout Standard
+Por lo tanto, para la instalación debemos de:
+\end_layout
+
+\begin_layout Quotation
+wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.16.3.tar.xz
+\end_layout
+
+\begin_layout Quotation
+tar -xvJf linux-3.16.tar.xz
+\end_layout
+
+\begin_layout Quotation
+cd linux-3.16
+\end_layout
+
+\begin_layout Quotation
+make menuconfig*
+\end_layout
+
+\begin_layout Quotation
+make
+\end_layout
+
+\begin_layout Quotation
+sudo make modules_install install
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+sudo update-grub2
+\end_layout
+
+\end_deeper
+\begin_layout Quotation
+\begin_inset Graphics
+	filename /home/caballeroalba/Imágenes/kernel.png
+	width 5cm
+	height 5cm
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una vez hecho esto, reiniciamos y ya tendríamos el kernel disponible en
+ la selección de inicio de grub, para comprobar que esta todo correcto,
+ basta con abrir un terminal y poner 
+\begin_inset Quotes eld
+\end_inset
+
+uname -r
+\begin_inset Quotes erd
+\end_inset
+
+ debería de salir que tenemos un kernel 3.16.3
+\end_layout
+
+\begin_layout Subsection
+Instalación utilidad nft
+\end_layout
+
+\begin_layout Standard
+Para esto instalaremos las 2 librerías necesarias (libmnl y libnfnl), para
+ ambas necesitamos hacer:
+\end_layout
+
+\begin_layout Standard
+$ git clone git://git.netfilter.org/lib[mnl o fnl]
+\end_layout
+
+\begin_layout Standard
+$ cd libnftnl
+\end_layout
+
+\begin_layout Standard
+$ sh autogen.sh 
+\end_layout
+
+\begin_layout Standard
+$ ./configure 
+\end_layout
+
+\begin_layout Standard
+$ make 
+\end_layout
+
+\begin_layout Standard
+$ sudo make install
+\end_layout
+
+\begin_layout Standard
+Ahora ya podemos instalar la utilidad nft:
+\end_layout
+
+\begin_layout Standard
+$ git clone git://git.netfilter.org/nftables 
+\end_layout
+
+\begin_layout Standard
+$ cd nftables 
+\end_layout
+
+\begin_layout Standard
+$ sh autogen.sh 
+\end_layout
+
+\begin_layout Standard
+$ ./configure 
+\end_layout
+
+\begin_layout Standard
+$ make 
+\end_layout
+
+\begin_layout Standard
+$ make install
+\end_layout
+
+\begin_layout Standard
+Y para comprobar su correcto funcionamiento tecleamos:
+\end_layout
+
+\begin_layout Standard
+$ sudo nft
+\end_layout
+
+\begin_layout Standard
+a al cual la terminal debería de responder:
+\end_layout
+
+\begin_layout Standard
+nft: no command specified
+\end_layout
+
+\begin_layout Standard
+confirmando así su correcta instalación
+\end_layout
+
+\begin_layout Subsection
+Prueba simple de nftables con la utilidad nft
+\end_layout
+
+\begin_layout Standard
+Ej: denegar la salida (drop output) a una ip especifica:
+\end_layout
+
+\begin_layout Standard
+1.
+ Nos dirigimos al directorio donde clonamos nftables
+\end_layout
+
+\begin_layout Standard
+2.
+ Iniciamos para ipv4 de la siguiente forma
+\end_layout
+
+\begin_layout Standard
+sudo nft -f files/nftables/ipv4-filter
+\end_layout
+
+\begin_layout Standard
+3.
+ Denegamos la salida a la ip
+\end_layout
+
+\begin_layout Standard
+sudo nft add rule ip filter output ip daddr 1.2.3.4 drop
+\end_layout
+
+\begin_layout Standard
+4.
+ comprobamos que esta correcto:
+\end_layout
+
+\begin_layout Standard
+ping 1.2.3.4
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado1.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+como podemos observar, no deja hacer ping a la direccion 1.2.3.4
+\end_layout
+
+\begin_layout Standard
+5.
+ Quitamos la reglas anteriores creadas:
+\end_layout
+
+\begin_layout Standard
+sudo nft delete rule filter output
+\end_layout
+
+\begin_layout Standard
+comprobación:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una vez comprobado el correcto funcionamiento de la utilidad nft podemos
+ indagar en el objetivo de este proyecto.
+\end_layout
+
+\begin_layout Subsection
+¿Utilidad nft o libnftnl?
+\end_layout
+
+\begin_layout Standard
+No podemos hacer una interfaz gráfica usando nft, si no que debemos usar
+ la librería libnftnl para poder interactuar con nftables a través de libmnl.
+\end_layout
+
+\begin_layout Standard
+Preguntar esto:
+\end_layout
+
+\begin_layout Standard
+Punto 2.5
+\end_layout
+
+\begin_layout Standard
+Alcance del proyecto (nft o libnftnl, permitir todas las posibles combinaciones
+ VISTA<-----> nftables)
+\end_layout
+
+\begin_layout Standard
+Distribución linux operativa en soekris con utilidad integrada en la distribució
+n.
+\end_layout
+
+\begin_layout Standard
+Uso de la librería libnftnl, utilidades definidas en ella para la comunicación
+\end_layout
+
+\begin_layout Standard
+Interacción de bajo nivel (¿ensamblador?)
+\end_layout
+
+\begin_layout Standard
+Escenarios de prueba (sistema chroot)
+\end_layout
+
+\begin_layout Standard
+Problemas con el eclipse.
+\end_layout
+
+\begin_layout Standard
+Libros recomendados
+\end_layout
+
+\begin_layout Standard
+¿curses o ncurses?
+\end_layout
+
+\begin_layout Section
+Estudio de utilidades existentes
+\end_layout
+
+\begin_layout Standard
+Debemos de tener en cuenta de que ya hay utilidades gráficas para iptables
+ pero NO para nftables por cual podemos obtener ideas para la funcionalidad
+ final.
+\end_layout
+
+\begin_layout Standard
+Las utilidades a que vamos a analizar son 5:
+\end_layout
+
+\begin_layout Enumerate
+Vuurmuur firewall
+\end_layout
+
+\begin_layout Enumerate
+fwbuilder
+\end_layout
+
+\begin_layout Enumerate
+Ipmenu
+\end_layout
+
+\begin_layout Enumerate
+Easy Firewall Generator
+\end_layout
+
+\begin_layout Enumerate
+Turtle Firewall Project
+\end_layout
+
+\begin_layout Standard
+De todas estas utilidades deberemos de enumerar sus ventajas/desventajas,
+ formas de instalación y funcionalidades que podamos desear en este proyecto
+\end_layout
+
+\begin_layout Subsection
+Entorno de pruebas
+\end_layout
+
+\begin_layout Standard
+Para poder analizar todas la utilidades vamos a usar una maquina virtual
+ basada en kvm con una instalación de Ubuntu Server en la cual instalaremos
+ todo lo necesario para poder probar estas utilidades.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space \thinspace{}
+\end_inset
+
+Características de la maquina:
+\end_layout
+
+\begin_layout Itemize
+1 CPU
+\end_layout
+
+\begin_layout Itemize
+512M de RAM
+\end_layout
+
+\begin_layout Itemize
+10GB de disco duro
+\end_layout
+
+\begin_layout Itemize
+Ubuntu Server 14.04
+\end_layout
+
+\begin_layout Standard
+ESPACIO PARA LA INSTALACIÓN DEL SERVIDOR y configuración del servidor
+\end_layout
+
+\begin_layout Subsection
+Configuración del servidor
+\end_layout
+
+\begin_layout Standard
+Una vez instalado el servidor, necesitamos instalar las dependencias básicas
+ para para poder compilar y instalar paquetes que vayamos a usar, no es
+ mas que usar aptitude o apt-get con las siguientes instrucciones:
+\end_layout
+
+\begin_layout Itemize
+sudo apt-get update 
+\end_layout
+
+\begin_layout Itemize
+sudo apt-get install build-essential automake make checkinstall dpatch patchutil
+s autotools-dev debhelper quilt fakeroot xutils lintian cmake dh-make libtool
+ autoconf git-core subversion libncurses5-dev
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+poner pasos para instalar nft en el caso de que ubuntu no la implemente
+ igualmente el kernel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Esperados unos segundos ya tenemos las herramientas básicas para poder compilar
+ los paquetes correctamente.
+\end_layout
+
+\begin_layout Standard
+En el caso de Ubuntu Server, ya tienes instalado un servidor ssh por lo
+ cual no es necesario instalarlo.
+ Ya que no tenemos interfaz gráfica, nos conectaremos a nuestra maquina
+ virtual por ssh.
+ En este caso tenemos la ip fija 192.168.122.178
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado4.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Vuurmuur Firewall
+\end_layout
+
+\begin_layout Standard
+Vuurmuur Firewall es una interfaz gráfica usando ncurses de iptables que
+ nos permite mediante una interfaz sencilla poder configurar iptables de
+ manera agradable y pudiendo llegar a reglas complejas, al usar ncurses
+ es posibles administrarla de manera remota usando por ej ssh.
+ Es software libre y esta bajo la licencia GNU/GPL
+\end_layout
+
+\begin_layout Subsubsection
+Intalación de Vuurmuur Firewall
+\end_layout
+
+\begin_layout Standard
+Como siempre, nos descargamos el tar de la pagina oficial y procedemos a
+ descomprimir y compilar
+\end_layout
+
+\begin_layout Itemize
+mkdir vuurmuur
+\end_layout
+
+\begin_layout Itemize
+cd vuurmuur
+\end_layout
+
+\begin_layout Itemize
+wget ftp://ftp.vuurmuur.org/releases/stable/Vuurmuur-0.7.tar.gz
+\end_layout
+
+\begin_layout Itemize
+tar zxf Vuurmuur*.tar.gz
+\end_layout
+
+\begin_layout Itemize
+cd Vuurmuur -- completar nombre carpeta
+\end_layout
+
+\begin_layout Itemize
+sudo ./install --install 
+\end_layout
+
+\begin_layout Standard
+Y iremos aceptando las opciones por defecto de instalación.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado5.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Primera toma de contacto
+\end_layout
+
+\begin_layout Standard
+Para ejecutar vuurmuur simplemente:
+\end_layout
+
+\begin_layout Standard
+sudo vuurmuur
+\end_layout
+
+\begin_layout Standard
+En el caso de que nos salte el error:
+\end_layout
+
+\begin_layout Standard
+Error: checking for iptables-capabilities failed.
+ Please see error.log.
+ 
+\end_layout
+
+\begin_layout Standard
+Debemos de ejecutar vuurmuur-conf , ir a vuurmuur config -> Modules y establecer
+ 'waittime after loading a module' a 10
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado6.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+TERMINAR ESTO, LO DEJAMOS POR EL ERROR QUE NOS DA
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Fwbuilder
+\end_layout
+
+\begin_layout Standard
+Fwbuilder consiste en una GUI basada en gtk en la cual podemos configurar
+ gráficamente iptables y exportar reglas.
+ Intenta extraer al administrador de sistemas la tarea de hacerlo todo con
+ la terminal, también soporta otros formatos de reglas a parte de iptables,
+ por ej: ipfilter, ipfw, OpenBSD pf, Cisco PIX y FWSM.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Intalación
+\end_layout
+
+\begin_layout Standard
+Fwbuilder tiendes paquetes .deb ya compilados, así que solo necesitamos usar
+ dpkg:
+\end_layout
+
+\begin_layout Itemize
+wget http://downloads.sourceforge.net/project/fwbuilder/Current_Packages/5.1.0/fwbui
+lder_5.1.0.3599-ubuntu-precise-1_amd64.deb?r=http%3A%2F%2Fsourceforge.net%2Fprojects%
+2Ffwbuilder%2Ffiles%2FCurrent_Packages%2F5.1.0%2F&ts=1413630449&use_mirror=kent
+\end_layout
+
+\begin_layout Itemize
+sudo dpkg -i fwbu*
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado7.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Greyedout
+status open
+
+\begin_layout Plain Layout
+Nota: necesarias las dependencias libqt4-gui, libqt4-network, libxslt1.1,
+ libsnmp, libsnmp15
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una vez instalado y haciendo un export DISPLAY=:0 en nuestra sesión ssh
+ y previamente habiéndonos conectado con el parametro -X podremos ejecutarlo
+ graficamente
+\end_layout
+
+\begin_layout Itemize
+ssh -X caballeroalba@192.168.122.189
+\end_layout
+
+\begin_layout Itemize
+export DISPLAY=:0
+\end_layout
+
+\begin_layout Itemize
+sudo fwbuilder
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado8.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Primera toma de contacto
+\end_layout
+
+\begin_layout Standard
+Una de las grandes ventajas de fwbuilder es que podemos usar direcciones
+ ip (o rango de direcciones) como objetos que podemos 
+\begin_inset Quotes eld
+\end_inset
+
+arrastrar
+\begin_inset Quotes erd
+\end_inset
+
+ a los campos source y destination de la reglas de iptables.
+ Un ejemplo sencillo de primera toma de contacto seria:
+\end_layout
+
+\begin_layout Itemize
+Creamos un nuevo firewall con el nombre proyecto
+\end_layout
+
+\begin_layout Itemize
+creamos una nueva interfaz (aunque se refiere a nuestras interfaces de red,
+ no las usa en si, solo usa su nombre para después imprimir las reglas)
+ 
+\end_layout
+
+\begin_layout Itemize
+Creamos la ip 192.168.122.178 (la de nuestra maquina kvm)
+\end_layout
+
+\begin_layout Itemize
+Creamos una simple regla que no deje pasar ningún paquete
+\end_layout
+
+\begin_layout Itemize
+Compilamos la regla
+\end_layout
+
+\begin_layout Standard
+De esta manera en la consola que tiene, nos devolverá la reglas a usar en
+ iptables
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename pegado10.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Basta entonces con simplemente usar estos comandos en nuestra consola ssh
+ en la maquina virtual para comprobar que funciona (no deja pasar ningún
+ paquete que tenga como source la ip 192.168.122.178)
+\end_layout
+
+\begin_layout Itemize
+sudo iptables -N RULE_0
+\end_layout
+
+\begin_layout Itemize
+sudo iptables -A INPUT -i eth0 -s 192.168.122.178 -j RULE_0
+\end_layout
+
+\begin_layout Itemize
+sudo iptables -A FORWARD -s 192.168.122.178 -j RULE_0
+\end_layout
+
+\begin_layout Itemize
+sudo iptables -A RULE_0 -j LOG --log-level info --log-prefix "RULE 0 --
+ DENY "
+\end_layout
+
+\begin_layout Itemize
+sudo iptables -A RULE_0 -j DROP 
+\end_layout
+
+\end_body
+\end_document
